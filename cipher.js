@@ -6,10 +6,9 @@ const algorithm = "aes-192-cbc";
 let password = readline.question("Geben Sie das Passwort ein:");
 let text = readline.question("Geben Sie den zu verschlüsselnden Text ein: ");
 
-
 // Zunächst wird der Schlüssel generiert, da er vom Algorithmus abhängig ist.
 // In diesem Fall für aes192 ist der Schlüssel 24 Bytes (192 Bits).
-crypto.scrypt(text, password, 24, (err, key) => {
+crypto.scrypt(password, "salt", 24, (err, key) => {
   if (err) throw err;
   // Danach erzeugen wir einen Zufallsvektor (Initialisierungsvektor)
   crypto.randomFill(new Uint8Array(16), (err, iv) => {
@@ -26,7 +25,7 @@ crypto.scrypt(text, password, 24, (err, key) => {
       console.log(text + "wird zu " + encrypted + " verschlüsselt")
     ); // gibt verschlüsselte Daten aus
 
-    cipher.write("some clear text data");
+    cipher.write(text);
     cipher.end();
   });
 });
