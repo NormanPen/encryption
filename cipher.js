@@ -34,7 +34,9 @@ const startCrypto = () => {
       cipher.on(
         "end",
         () => file.write(encrypted),
-        console.log("Verschlüsselung in tresor.txt gespeicher")
+        console.log(
+          "Verschlüsselung von: " + text + "in tresor.txt gespeicher."
+        )
       );
 
       cipher.write(text);
